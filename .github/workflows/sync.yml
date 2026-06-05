@@ -3,11 +3,13 @@ name: Sync Leetcode
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * 6" # Runs automatically once a week
+    - cron: "0 8 * * *"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # This forces Node 24 and clears the warning
 
     steps:
     - name: Sync
@@ -16,4 +18,4 @@ jobs:
         github-token: ${{ github.token }}
         leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
         leetcode-session: ${{ secrets.LEETCODE_SESSION }}
-        destination-folder: my-solutions # Optional: Removes clutter by keeping files in a folder
+        destination-folder: my-solutions
